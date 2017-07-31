@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				width: 200px;
+				height: 200px;
+				border: 1px dashed red;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<input type="file" name="imgOne" id="imgOne"/>
+		<canvas id="canvas"></canvas>
+		<button id="save">保存</button>
+	</body>
+	<script type="text/javascript">
+		var save=document.getElementById("save");
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+		var imgOne=document.getElementById("imgOne");
+		imgOne.onchange=function () {
+			var imgFile=this.files.item(0);
+			var _url=window.URL.createObjectURL(imgFile);  //获取地址
+			var imgItem=new Image();
+			imgItem.src=_url;
+			imgItem.onload=function(){
+
+				context.drawImage(imgItem,0,0,200,200); 
+				context.beginPath();
+				context.fillStyle="red";
+				context.arc(150,100,50,0,2*Math.PI,false);
+				context.fill();
+				context.closePath();//绘制到画板上
+		}
+
+	}
+		save.onclick=function(){
+			
+			var type = 'png';  //指定格式
+			var imgData =canvas.toDataURL(type);
+			
+			var filename = 'img_' + (new Date()).getTime() + '.' + type;
+			var save_link = document.createElement('a');
+			save_link.href = imgData;
+			save_link.download = filename; 
+			
+			var event = document.createEvent('MouseEvents');
+			event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+			
+			save_link.dispatchEvent(event);   //方法给节点分派一个合成事件
+//down是a标签的新属性
+			alert(111)
+			
+
+		}
+
+	</script>
+</html>
