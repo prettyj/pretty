@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				border: 1px dashed red;
+			}
+		</style>
+	</head>
+	<body>
+	<canvas id="canvas" height="300px" width="300px"></canvas>
+	</body>
+	<script>
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+//		context.translate(75,75);
+//		context.rotate(60*Math.PI/180);	
+//		context.translate(-25,-25);
+//		context.fillStyle="blue";
+//		context.fillRect(0,0,100,100);
+		context.translate(50,50);
+		var angel=0;
+		var speed=3;
+		setInterval(_rotate,30);
+		context.save();
+		function _rotate(){
+			context.clearRect(-100,-100,canvas.width+100,canvas.height+100);
+			context.restore();
+			context.save();
+			
+			
+			context.translate(50,50);
+			angel+=speed;
+			context.translate(25,25);
+			context.rotate(angel*Math.PI/180);	
+			
+			context.translate(-25,-25);
+			context.beginPath();
+			context.fillStyle="blue";
+			context.fillRect(0,0,50,50);
+			context.closePath();
+		}
+		
+	</script>
+</html>

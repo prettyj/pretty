@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#canvas{
+				border: 1px dashed red;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" height="300px" width="300px"></canvas>
+	</body>
+	<script type="text/javascript">
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+		setInterval(_rotate,100);
+		context.save();
+		var angel=0;
+		var speed=10;
+		var type="right";
+		function _rotate(){
+			context.clearRect(0,0,canvas.width,canvas.height);
+			context.restore();
+			context.save();
+			if(type=="right"){
+				angel+=speed;
+				if(angel>=300-50){
+					type="left";
+				}
+			}else{
+				angel-=speed;
+				if(angel<=0){
+					type="right";
+				}
+			}
+			
+			context.translate(angel,0);
+			context.beginPath();
+			context.fillStyle="blue";
+			context.fillRect(0,0,50,50);
+			context.closePath();
+		}
+	</script>
+</html>
